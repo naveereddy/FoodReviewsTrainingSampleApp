@@ -1,0 +1,110 @@
+.review-content{
+  height: calc(100vh - 75px);position: relative;overflow:hidden;
+}
+.reviewslist.card {
+    margin-bottom: 15px;
+    background:#f9f9f9;
+    margin-top:15px;
+}
+
+.reviewslist.card .card-header label {
+    margin-bottom: 0px;
+    font-size: 13px;
+}
+
+.reviewslist .card-text {
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom:0px;
+}
+input.rdata{
+  height:22px;
+  border:1px solid #d3d3d3;
+  border-radius:2px;
+  font-size:13px;
+  padding: 0px 8px;
+}
+.buttongroup {
+    display: block;
+    width: 100%;
+}
+
+.buttongroup button {
+    margin: 0px 8px;
+}
+
+.backdrop {
+    /* background-color:rgba(0,0,0,0.6); */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+.devider-vr {
+    border-left: 1px solid #d3d3d3;
+}
+
+.custom-content {
+    max-height: 350px;
+    overflow: hidden;
+}
+
+.content-scroll {
+    /* max-height: 320px; */
+    overflow-y: auto;
+    padding:15px 0px 0px 0px;
+    border: 1px solid #d3d3d3;
+    border-radius:.25rem;
+}
+
+.datestamp {
+    margin: 0px 8px;
+    padding-right: 8px;
+    border-right: 1px solid #d3d3d3;
+}
+
+.tagtitle {
+    display:block;
+    width:50%;
+    text-transform: capitalize;
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 16px;
+    background: linear-gradient(to left, rgba(255,255,255,0), rgba(18,18,18,1));
+    margin-bottom:8px;
+}
+
+.reviewtext,
+.tagname,
+.tagvalue {
+    font-size: 14px;
+}
+
+.tagname {
+    color: #212121;
+    line-height: 18px;
+}
+
+.tagvalue {
+    color: #4f4f4f;
+    margin: 0px 8px;
+    line-height: 14px;
+}
+.pull-left{float: left;}
+.pull-right{float: right;}
+.taginfosec{border-bottom:0px solid #d3d3d3;margin-bottom:8px; }
+.star_bg span.labeltxt{color:#212529;}
+.star_bg{color:#FF8C00;}
+.reviewbuttongroup{
+  /* position: absolute;
+    bottom: 0px;
+    right: 0px; */
+    /* background: #f6f6f6; */
+    width: 100%;
+    padding: 10px 15px;
+    /* border: 1px solid rgba(0,0,0,.125); */
+    border-radius: 0.25em;
+    margin-top:15px;
+}

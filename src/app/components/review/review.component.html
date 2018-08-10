@@ -1,0 +1,64 @@
+<div class="my-container">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' , backdropBackgroundColour:'#fff', primaryColour: '#3a3b40', secondaryColour: '#3a3b40', tertiaryColour: '#3a3b40'}"></ngx-loading>
+</div>
+<div #reviewbodyheight class="review-content">
+    <div #reviewtext class="col-lg-12 plr-0">
+        <div class="card reviewslist">
+            <div class="card-body">
+                <!-- review business name and posted date  -->
+                <div class="row">
+                    <div class="col-lg-6"><label class="text-left"><b>{{review.business.name}}</b></label></div>
+                    <div class="col-sm-6 text-right"><label class="mr-8">Date: <span class="card-subtitle mb-2 text-muted">{{review.review.date}}</span></label><label class="star_bg"><span class="labeltxt">Rating:</span> <ngb-rating [rate]="review.review.stars" [max]="5" [readonly]=true></ngb-rating></label></div>
+                </div>
+                <!-- review description -->
+                <p class="card-text">{{review.review.text}}</p>
+                <div class="buttongroup text-right">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- showing common emotions for evry review. user can select shown emotion for that perticular review after reading that review -->
+    <div class="content-scroll" [style.height.px]="rbodyheight">
+        <div *ngFor="let tag of tags;let tagindex=index">
+            <div class="row mlr-0 taginfosec">
+                <div class="col-lg-12 plr-0"><span class="tagtitle col-lg-12">{{tag.category}}</span></div>
+                <div *ngFor="let em of tag.tags;let emindex=index" class="col-lg-6 plr-0 pull-left">
+                    <div class="row mlr-0">
+                        <div class="col-lg-6"><label class="col-lg-6 plr-0"><span class="tagname">{{em.tag}}:</span></label>
+                            <div class="pull-right">
+                                <div *ngFor="let emt of em.emotions;let emtindex=index" class="dinflex" style="display:inline-flex;">
+                                    <input type="checkbox" value="{{emt.emotion}}" [(ngModel)]='emt.checked' (change)="oncheckboxChange(em,$event,tagindex,emindex,emtindex)">
+                                    <span class="tagvalue">{{emt.emotion}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6"><input type="text" [(ngModel)]="em.reason" class="rdata btn-block" (change)="textboxchangeAction(em.tag,tagindex,emindex)"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mlr-0 reviewbuttongroup">
+        <div class="col-lg-12 plr-0">
+            <!-- when user clicks on pending reviews button  then we user can see this below buttons-->
+            <div class="buttongroup text-right" *ngIf="review && review.reviewtype == 'pending'">
+                <button class="btn btn-sm btn-danger btn-100" (click)="ignorereview(review)">Ignore</button>
+                <button type="button" class="btn btn-sm btn-success btn-100" (click)="onSaveHandled()" [disabled]="savetags.length == 0">Save</button>
+            </div>
+            <!-- when user clicks on ignore reviews button then we user can see this below buttons-->
+            <div class="buttongroup text-right" *ngIf="review  &&review.reviewtype == 'ignore'">
+                <button class="btn btn-sm btn-danger btn-100" (click)="dontignoreAction(review)">Don't Ignore</button>
+                <button class="btn btn-sm btn-info btn-100" (click)="nextAction(review,'previous')">Previous</button>
+                <button class="btn btn-sm btn-info btn-100" (click)="nextAction(review,'next')">Next</button>
+                <button type="button" class="btn btn-sm btn-success btn-100" (click)="onSaveignoredtags(review)" [disabled]="savetags.length == 0">Save</button>
+            </div>
+            <!-- when user clicks on taged reviews button  then we user can see this below buttons-->
+            <div class="buttongroup text-right" *ngIf="review && review.reviewtype == 'taged'">
+                <button class="btn btn-sm btn-danger btn-100" (click)="tagedignorereview(review)">Ignore</button>
+                <button class="btn btn-sm btn-info btn-100" (click)="nextAction(review,'previous')">Previous</button>
+                <button class="btn btn-sm btn-info btn-100" (click)="nextAction(review,'next')">Next</button>
+                <button type="button" class="btn btn-sm btn-success btn-100" (click)="oneditHandled(review)" [disabled]="savetags.length == 0">Update</button>
+            </div>
+        </div>
+    </div>
+</div>

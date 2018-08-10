@@ -1,0 +1,62 @@
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <label style="color:#fff;text-transform:capitalize;margin-bottom: 0;" class="navbar-brand col-sm-3 col-md-2 mr-0">{{loginRes.collection.split('_')[1]}}</label>
+    <label class="menuicon" (click)="openNav()"><img src="assets/images/menu-icon.png" alt="menuicon" width="18"/></label>
+    <ul class="navbar-nav px-3">
+        <!-- logout button -->
+        <li class="nav-item text-nowrap">
+            <label class="logouticon" (click)="logout()"><img src="assets/images/logout.png" alt="icon" width="18"/></label>
+        </li>
+        <!-- login username show -->
+        <li class="nav-item text-nowrap">
+            <label class="profiletxt">{{loginRes.username}}</label>
+        </li>
+    </ul>
+</nav>
+<div class="my-container">
+    <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' , backdropBackgroundColour:'#fff', primaryColour: '#3a3b40', secondaryColour: '#3a3b40', tertiaryColour: '#3a3b40'}"></ngx-loading>
+</div>
+<!-- side menu -->
+<div class="container-fluid page-content">
+    <div class="row">
+        <nav [style.width.px]="sidebarwidth" class="d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <!-- pending reviews count showing -->
+                    <li class="nav-item">
+                        <div class="nav-link" [ngClass]="{'active':pendingreviews}" (click)="pendingreviewsAction()">
+                            <a class="highlightcolor">Pending Reviews ({{(reviewCounts.total_reviewscount)- (reviewCounts.ignore_reviewscount + reviewCounts.taged_reviewscount)}})</a>
+                        </div>
+                    </li>
+                    <!-- ignored count showing -->
+                    <li class="nav-item">
+                        <div class="nav-link" [ngClass]="{'active':ignoredreviews}" (click)="ignoredreviewsAction()">
+                            <a class="highlightcolor">Ignored ({{reviewCounts.ignore_reviewscount}})</a>
+                        </div>
+                    </li>
+                    <!-- taged review count showing -->
+                    <li class="nav-item">
+                        <div class="nav-link" [ngClass]="{'active':tagedreviews}" (click)="tagedreviewsAction()">
+                            <a class="highlightcolor">Taged ({{reviewCounts.taged_reviewscount}})</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <main [style.paddingLeft.px]="panelmargin" role="main" class="col-md-12">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+                <!-- pending reviews details show -->
+                <div class="container-fluid plr-0" *ngIf="pendingreviews">
+                    <app-review *ngFor="let review of reviews" [review]=review (getNewReviewsCountChange)="newIgnoreAndTagedReviewsCount($event)"></app-review>
+                </div>
+                <!-- ignored reviews details show -->
+                <div class="container-fluid plr-0" *ngIf="ignoredreviews">
+                    <app-review *ngFor="let review of reviews" [review]=review (getNewReviewsCountChange)="newIgnoreAndTagedReviewsCount($event)"></app-review>
+                </div>
+                <!-- taged reviews details show -->
+                <div class="container-fluid plr-0" *ngIf="tagedreviews">
+                    <app-review *ngFor="let review of reviews" [review]=review (getNewReviewsCountChange)="newIgnoreAndTagedReviewsCount($event)"></app-review>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
